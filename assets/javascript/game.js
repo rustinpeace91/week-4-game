@@ -6,8 +6,7 @@ var jedi = ["obiWan", "lukeSkywalker", "darthVader", "theEmperor"];
 //array of jedi ID names as they relate to the DOM
 var jediDOM = ["#obi-wan", "#luke-skywalker", "#darth-vader", "#the-emperor"]
 
-//array of jedi objects if nessary
-//var jediObj = [obiWan, lukeSkywalker, darthVader, theEmperor];
+
 
 //condition of whether a jedi has been chosen
 var jediChosen = false;
@@ -19,7 +18,7 @@ var currentEnemy;
 //objects
 var obiWan = {
     name:"obiWan",
-    dom: "#obi-wan",
+    dom: "obi-wan",
     HP: 120,
     mainCharacter: false,
     baseAttack: 8,
@@ -42,7 +41,7 @@ var obiWan = {
 
 var darthVader = {
     name: "darthVader",
-    dom: "#darth-vader",
+    dom: "darth-vader",
     HP:140,
     baseAttack:9,
     counterAttack:9
@@ -50,7 +49,7 @@ var darthVader = {
 
 var lukeSkywalker = {
     name: "lukeSkywalker",    
-    dom: "#luke-skywalker",
+    dom: "luke-skywalker",
     HP:140,
     baseAttack:9,
     counterAttack:9
@@ -58,15 +57,27 @@ var lukeSkywalker = {
 
 var theEmperor = {
     name: "theEmperor",
-    dom: "#the-emperor",
+    dom: "the-emperor",
     HP:140,
     baseAttack:9,
     counterAttack:9
 }
 
+//array of jedi objects if nessary
+var jediObj = [obiWan, lukeSkywalker, darthVader, theEmperor];
+
+
 //functions
 
 //function for sorting your enemies
+function selectCharacter(chosen){
+    for(i = 0; i <jediObj.length; i++){
+        if(jediObj[i].dom === chosen){
+            return jediObj[i];
+        }
+    }
+}
+
 function enemySort(){
     for(i = 0; i < jedi.length; i++){
         if(jedi[i] != yourJedi.name.toString()) {
@@ -81,7 +92,17 @@ function enemySort(){
 //click event to select character to initiate the game
 $(document).ready(function(){
 
-        $("#obi-wan").on("click", function(){
+    $(".character" ).on("click", function(){
+        if(jediChosen == false) {
+            var chosen = $(this).attr('id');
+            var element = $("#" + chosen).detach();
+            $("#your-character").append(element);
+            yourJedi = selectCharacter(chosen); 
+            alert("You have selected " + yourJedi.name + ". They have an HP of " + yourJedi.HP);
+            jediChosen = true;
+        }
+    });
+    /*$("#obi-wan").on("click", function(){
             if(jediChosen == false){
                 var element = $("#obi-wan").detach();
                 $("#your-character").append(element);
@@ -119,7 +140,7 @@ $(document).ready(function(){
                 enemySort();
                 jediChosen = true;
             };
-        });
+        });*/
 
 })
 
