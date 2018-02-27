@@ -1,9 +1,37 @@
-#start-characters {
+
+
+body{
+    background-image:url("../images/maxresdefault.jpg");
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    font-size:18px;
+}
+#container {
+    background:#d9e6fc;
+    padding:20px;
+}
+#start-characters, #enemies{
     display:flex;
     flex-wrap:wrap;
+}
+#instructions{
+
 }
 
 .jedi {
     width:100px;
-    margin:5px
+    margin-left:5px;
+}
+
+.hidden{
+    display:none;
+}
+
+.health-bar{
+    position:relative;
+    bottom:20px;
+    background-color:red;
+    text-align:center;
+    width:100px;
+    margin-left:5px;
+
 }
