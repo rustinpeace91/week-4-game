@@ -17,6 +17,8 @@ var currentEnemy;
 //keeps track of all the enemies defeated
 var winCounter = 0;
 
+var turn = 0;
+
 //objects
 var obiWan = {
     //object name
@@ -229,6 +231,7 @@ function selectCurrentEnemy(chosen){
 
 //attack function 
 function attack() {
+    turn++;
     //subtacts your base attack from the enemies HP
     currentEnemy.HP -= yourJedi.baseAttack;
     //subtracts the enemy's counter attack from your HP
@@ -251,7 +254,9 @@ function attack() {
     } else {
         yourJedi.update(); 
     }
-
+    $("#fight-console").prepend("<p>" + currentEnemy.dom + " did " + currentEnemy.counterAttack + " damage</p>");
+    $("#fight-console").prepend("<p>you did " + yourJedi.baseAttack + " damage</p>");
+    $("#fight-console").prepend("<p>---------------------------turn " + turn + "-------------------------------------</p>");;
 }
 
 //checks to see if you have defeated all your enemies
@@ -290,10 +295,12 @@ function resetGame(){
     jediChosen = false;
     yourJedi = undefined;
     currentEnemy = undefined;
+    turn = 0;
     //cycles through jedi object array. runs the reset method for each jedi
     for(i = 0; i<jediObj.length; i++){
         jediObj[i].reset();
     }
+    $("#fight-console").empty();
     
 };
 
