@@ -10,3 +10,4 @@ You want to start by attacking enemies with a smaller counter attack, so you can
 
 The amount of HP a character has does not necessarily represent how powerful their attack and counter attack is. 
 
+For instance. Obi Wan has low HP, but a very high counter attack. Attacking him first could go very badly for your character.

@@ -247,6 +247,7 @@ function attack() {
     if (yourJedi.HP <= 0) {
         loseGame();
         yourJedi.update();
+        $("#fight-console").prepend("<p>you lose! hit the reset button and try again</p>");
     } else if (currentEnemy.HP <= 0) {
         currentEnemy.defeat();
         checkWin();
@@ -281,12 +282,14 @@ function checkWin(){
 function winGame(){
     alert("you win!");
     $("#reset").removeClass("hidden");
+    $("#fight-console").prepend("<p>you win! reset the game to try again if you want.</p>");
+    $("#attack").addClass("hidden");
 }
 
 function loseGame(){
     alert("you lose");
     $("#reset").removeClass("hidden");
-
+    $("#attack").addClass("hidden");
 }
 
 //runs if the reset button is pushed
@@ -301,9 +304,8 @@ function resetGame(){
         jediObj[i].reset();
     }
     $("#fight-console").empty();
-      
-    $("#attack").addClass("hidden");
     $("#reset").addClass("hidden");
+
 };
 
 
