@@ -301,7 +301,9 @@ function resetGame(){
         jediObj[i].reset();
     }
     $("#fight-console").empty();
-    
+      
+    $("#attack").addClass("hidden");
+    $("#reset").addClass("hidden");
 };
 
 
