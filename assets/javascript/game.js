@@ -23,15 +23,16 @@ var obiWan = {
     name:"obiWan",
     //DOM Id name
     dom: "obi-wan",
-    HP: 120,
+    HP: 85,
     //boolean if this jedi is selected
     mainCharacter: false,
     //boolean for if this jedi is not selected and is therefore an enemy
     enemy: false,
     //base attack (increases)
-    baseAttack: 8,
+    baseAttack: 7,
+    attackIncrease: 7,
     //counter attack (does not increase)
-    counterAttack: 8,
+    counterAttack: 20,
     defeated:false,
     //updates HP on the DOM every time damage is taken
     update: function(){
@@ -46,10 +47,10 @@ var obiWan = {
     },
     //resets character attributes after the game is over
     reset:function(){
-        this.HP = 120;
+        this.HP = 85;
         this.mainCharacter = false;
         this.enemy = false;
-        this.baseAttack = 8;
+        this.baseAttack = 7;
         this.defeated = false;
         //moves the character icon back to it's original spot
         var element = $(jediDOM[0]).detach();
@@ -66,10 +67,11 @@ var darthVader = {
     dom: "darth-vader",
     mainCharacter: false,
     enemy: false,
-    HP:140,
-    maxHP:140,
-    baseAttack:9,
-    counterAttack:9,
+    HP:130,
+    maxHP:130,
+    baseAttack:6,
+    attackIncrease:6,
+    counterAttack:4,
     defeated:false,
 
     update: function(){
@@ -83,10 +85,10 @@ var darthVader = {
     }, 
     
     reset:function(){
-        this.HP = 140;
+        this.HP = 130;
         this.mainCharacter = false;
         this.enemy = false;
-        this.baseAttack = 9;
+        this.baseAttack = 6;
         this.defeated = false;
         var element = $("#" + this.dom).detach();
         $("#start-characters").append(element);
@@ -103,10 +105,11 @@ var lukeSkywalker = {
     dom: "luke-skywalker",
     mainCharacter: false,
     enemy: false,
-    HP:140,
-    maxHP:140,
-    baseAttack:9,
-    counterAttack:9,
+    HP:135,
+    maxHP:135,
+    baseAttack:5,
+    attackIncrease: 5,
+    counterAttack:5,
     defeated:false,
 
     update: function(){
@@ -120,10 +123,10 @@ var lukeSkywalker = {
     },
     
     reset:function(){
-        this.HP = 140;
+        this.HP = 135;
         this.mainCharacter = false;
         this.enemy =false;
-        this.baseAttack = 9;
+        this.baseAttack = 5;
         this.defeated = false;
         var element = $("#" + this.dom).detach();
         $("#start-characters").append(element);
@@ -139,9 +142,10 @@ var theEmperor = {
     dom: "the-emperor",
     mainCharacter: false,
     enemy: false,
-    HP:180,
-    baseAttack:12,
-    counterAttack:12,
+    HP:160,
+    baseAttack:2,
+    attackIncrease:2,
+    counterAttack:10,
     defeated:false,
 
     
@@ -157,10 +161,10 @@ var theEmperor = {
     },
     
     reset:function(){
-        this.HP = 180;
+        this.HP = 160;
         this.mainCharacter = false;
         this.enemy = false;
-        this.baseAttack = 12;
+        this.baseAttack = 2;
         this.defeated = false;
         var element = $("#" + this.dom).detach();
         $("#start-characters").append(element);
@@ -230,19 +234,22 @@ function attack() {
     //subtracts the enemy's counter attack from your HP
     yourJedi.HP -= currentEnemy.counterAttack;
     //increas your attack
-    yourJedi.baseAttack += yourJedi.counterAttack;
+    yourJedi.baseAttack += yourJedi.attackIncrease;
     console.log("Your HP: " + yourJedi.HP + " Enemy HP:  " + currentEnemy.HP);
     //runs the update method
-    yourJedi.update();
+
     //runs the update method for your enemy
     currentEnemy.update();
     //checks to see if you have defeated the enemy
-    if(currentEnemy.HP <= 0) {
+    if (yourJedi.HP <= 0) {
+        loseGame();
+        yourJedi.update();
+    } else if (currentEnemy.HP <= 0) {
         currentEnemy.defeat();
         checkWin();
     //checks to see if you have lost all your HP     
-    } else if (yourJedi.HP <= 0) {
-        loseGame();
+    } else {
+        yourJedi.update(); 
     }
 
 }
